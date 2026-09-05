@@ -1,8 +1,12 @@
 import express from "express";
+import cors from "cors";
 import { router } from "./routes";
 
 const app = express();
 const PORT = 3000;
+
+// habilita que un frontend en otro puerto (Vite, Live Server, etc.) consuma esta API
+app.use(cors());
 
 // todo lo que empiece con /api lo atiende el router
 app.use("/api", router);
