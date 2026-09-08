@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getListaPokemon, getPokemon } from "./controllers/pokemon";
-import { getTiposDePokemon } from "./controllers/tipos";
+import { getPokemonesPorTipo } from "./controllers/tipos";
 
 export const router = Router();
 
@@ -8,5 +8,5 @@ export const router = Router();
 router.get("/pokemon", getListaPokemon);
 router.get("/pokemon/:nombre", getPokemon);
 
-// EL RETO (dificultad media): solo los tipos de un pokémon
-router.get("/pokemon/:nombre/tipos", getTiposDePokemon);
+// filtro: todos los pokémon que tienen un tipo dado (ej. /tipos/fire)
+router.get("/tipos/:tipo", getPokemonesPorTipo);

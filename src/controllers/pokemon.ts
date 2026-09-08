@@ -7,12 +7,20 @@ export async function getListaPokemon(req: Request, res: Response) {
   // sin límite explícito, pedimos un número lo bastante grande para traerlos todos
   const limit = req.query.limit ?? 100000;
 
-  const respuesta = await fetch(`${URL_POKEAPI}?limit=${limit}`);
-  const datos = await respuesta.json();
+  try {
+    const respuesta = await fetch(`${URL_POKEAPI}?limit=${limit}`);
+    if (!respuesta.ok) {
+      return res.status(502).json({ error: "No se pudo obtener la lista de pokémon" });
+    }
+    const datos = await respuesta.json();
 
-  res.json({
-    pokemons: datos.results.map((p: any) => p.name),
-  });
+    res.json({
+      pokemons: datos.results.map((p: any) => p.name),
+    });
+  } catch (error) {
+    console.error("Error al obtener la lista de pokémon:", error);
+    res.status(502).json({ error: "No se pudo conectar con la PokeAPI" });
+  }
 }
 
 // GET /api/pokemon/:nombre - Obtener información de un pokemon específico
