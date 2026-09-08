@@ -2,9 +2,10 @@ import type { Request, Response } from "express";
 
 const URL_POKEAPI = "https://pokeapi.co/api/v2/pokemon";
 
-// GET /api/pokemon?limit=151 - Obtener lista de primeros 151 pokemones
+// GET /api/pokemon?limit=N - Obtener lista de pokemones (todos si no se pasa limit)
 export async function getListaPokemon(req: Request, res: Response) {
-  const limit = req.query.limit ?? 151;
+  // sin límite explícito, pedimos un número lo bastante grande para traerlos todos
+  const limit = req.query.limit ?? 100000;
 
   const respuesta = await fetch(`${URL_POKEAPI}?limit=${limit}`);
   const datos = await respuesta.json();
