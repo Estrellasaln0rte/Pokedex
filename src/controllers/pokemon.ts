@@ -2,7 +2,19 @@ import type { Request, Response } from "express";
 
 const URL_POKEAPI = "https://pokeapi.co/api/v2/pokemon";
 
-// GET /api/pokemon/:nombre
+// GET /api/pokemon?limit=151 - Obtener lista de primeros 151 pokemones
+export async function getListaPokemon(req: Request, res: Response) {
+  const limit = req.query.limit ?? 151;
+
+  const respuesta = await fetch(`${URL_POKEAPI}?limit=${limit}`);
+  const datos = await respuesta.json();
+
+  res.json({
+    pokemons: datos.results.map((p: any) => p.name),
+  });
+}
+
+// GET /api/pokemon/:nombre - Obtener información de un pokemon específico
 export async function getPokemon(req: Request, res: Response) {
   // A · LEER EL PEDIDO — el :nombre de la ruta
   const { nombre } = req.params;
