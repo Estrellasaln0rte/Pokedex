@@ -41,5 +41,7 @@ export async function getPokemon(req: Request, res: Response) {
     nombre: datos.name,
     imagen: datos.sprites.front_default,
     tipos: datos.types.map((t: any) => t.type.name),
+    altura: datos.height,
+    peso: datos.weight,
   });
 }
