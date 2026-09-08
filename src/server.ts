@@ -3,6 +3,15 @@ import { router } from "./routes";
 
 const app = express();
 const PORT = 3000;
+app.get("/", (req, res) => {
+  res.json({
+    mensaje: "API Pokedex funcionando correctamente",
+    endpoints: [
+      "/api/pokemon/:nombre",
+      "/api/pokemon/:nombre/tipos"
+    ]
+  });
+});
 
 // todo lo que empiece con /api lo atiende el router
 app.use("/api", router);
